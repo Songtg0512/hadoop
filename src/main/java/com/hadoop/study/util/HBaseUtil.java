@@ -13,9 +13,8 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Admin;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 
@@ -53,7 +52,7 @@ public class HBaseUtil {
      * @param familys 列族
      */
     public static void createTable(String tableName,String...familys) throws IOException {
-
+        // get Admin
         Admin admin = connection.getAdmin();
 
         HTableDescriptor table = new HTableDescriptor(TableName.valueOf(tableName));
@@ -72,10 +71,33 @@ public class HBaseUtil {
         }
     }
 
+    /**
+     *  插入数据
+     * @param tableName 表明
+     * @param rowKey rowKey
+     * @param family 列族
+     * @param colmun 列
+     * @param value 值
+     */
+    public static void insertData(String tableName,String rowKey,String family,String colmun,String value) throws IOException {
+
+        Table table = connection.getTable(TableName.valueOf(tableName));
+
+        Put put = new Put(Bytes.toBytes(rowKey));
+
+        put.addColumn(Bytes.toBytes(family),Bytes.toBytes(colmun),Bytes.toBytes(value));
+
+        table.put(put);
+
+    }
+
     public static void main(String[] args) throws IOException {
-        String tableName = "testAPI";
+        /*String tableName = "testAPI";
         String[] familys = new String[]{"cf","cf1","cf2"};
-        HBaseUtil.createTable(tableName,familys);
+        HBaseUtil.createTable(tableName,familys);*/
+
+        HBaseUtil.insertData("testAPI","raw02","cf","name","hbase");
+
     }
 }
  

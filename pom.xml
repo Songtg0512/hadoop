@@ -89,6 +89,17 @@
       <artifactId>hbase-server</artifactId>
       <version>1.2.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-examples</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>22.0</version>
+    </dependency>
   </dependencies>
 
   <build>
