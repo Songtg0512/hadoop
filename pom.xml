@@ -21,54 +21,44 @@
   <repositories>
     <repository>
       <id>cloudera</id>
-      <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+    </repository>
+    <repository>
+      <id>maven</id>
+      <url>http://central.maven.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>alimaven</id>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
     </repository>
   </repositories>
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-resources-plugin</artifactId>
+      <version>2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-common</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-hdfs</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-maven-plugins</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-client</artifactId>
-      <version>2.6.0</version>
+      <version>2.6.0-cdh5.14.0</version>
     </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.hive</groupId>
-      <artifactId>hive-exec</artifactId>
-      <version>1.1.0-cdh5.14.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.hive</groupId>
-      <artifactId>hive-common</artifactId>
-      <version>1.1.0-cdh5.14.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.hive</groupId>
-      <artifactId>hive-jdbc</artifactId>
-      <version>1.1.0-cdh5.14.0</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.apache.hive/hive-metastore -->
-    <dependency>
-      <groupId>org.apache.hive</groupId>
-      <artifactId>hive-metastore</artifactId>
-      <version>1.1.0-cdh5.14.0</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.apache.hive/hive-exec -->
-    <dependency>
-      <groupId>org.apache.hive</groupId>
-      <artifactId>hive-exec</artifactId>
-      <version>1.1.0-cdh5.14.0</version>
-    </dependency>
-
     <dependency>
       <groupId>org.apache.hbase</groupId>
       <artifactId>hbase-common</artifactId>
@@ -89,10 +79,101 @@
       <artifactId>hbase-server</artifactId>
       <version>1.2.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-yarn-server-resourcemanager</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-yarn-server-nodemanager</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-yarn-common</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-mapreduce-client-app</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-mapreduce-client-common</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-mapreduce-client-core</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-mapreduce-client-jobclient</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-yarn-api</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-yarn-client</artifactId>
+      <version>2.6.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hive</groupId>
+      <artifactId>hive-exec</artifactId>
+      <version>1.1.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hive</groupId>
+      <artifactId>hive-common</artifactId>
+      <version>1.1.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hive</groupId>
+      <artifactId>hive-jdbc</artifactId>
+      <version>1.1.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flume</groupId>
+      <artifactId>flume-ng-core</artifactId>
+      <version>1.6.0-cdh5.14.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.flume.flume-ng-sources</groupId>
+      <artifactId>flume-kafka-source</artifactId>
+      <version>1.6.0-cdh5.14.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.hbase</groupId>
       <artifactId>hbase-examples</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.hive/hive-metastore -->
+    <dependency>
+      <groupId>org.apache.hive</groupId>
+      <artifactId>hive-metastore</artifactId>
+      <version>1.1.0-cdh5.14.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.hive/hive-exec -->
+    <dependency>
+      <groupId>org.apache.hive</groupId>
+      <artifactId>hive-exec</artifactId>
+      <version>1.1.0-cdh5.14.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud.bigtable</groupId>
+      <artifactId>bigtable-hbase-mapreduce</artifactId>
       <version>1.2.0</version>
     </dependency>
     <dependency>
@@ -100,31 +181,24 @@
       <artifactId>guava</artifactId>
       <version>22.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.mrunit</groupId>
+      <artifactId>mrunit</artifactId>
+      <version>1.1.0</version>
+      <classifier>hadoop2</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>1.9.5</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
-
-  <build>
-    <defaultGoal>compile</defaultGoal>
-
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.12.3</version>
-        <configuration>
-          <groups>unit</groups>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.0</version>
-        <configuration>
-          <verbose>true</verbose>
-          <fork>true</fork>
-          <compilerVersion>1.5</compilerVersion>
-        </configuration>
-      </plugin>
-
-    </plugins>
-  </build>
 </project>

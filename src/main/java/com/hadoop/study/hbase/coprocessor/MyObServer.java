@@ -7,12 +7,19 @@
  * History:
  */
 package com.hadoop.study.hbase.coprocessor;
+import java.io.IOException;
+import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.Durability;
+import org.apache.hadoop.hbase.client.Get;
+import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.coprocessor.BaseRegionObserver;
 import org.apache.hadoop.hbase.coprocessor.ObserverContext;
 import org.apache.hadoop.hbase.coprocessor.RegionCoprocessorEnvironment;
@@ -20,8 +27,7 @@ import org.apache.hadoop.hbase.regionserver.wal.WALEdit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.List;
+
 
 /**
  * 〈Region级别的ObServer〉
@@ -34,49 +40,48 @@ public class MyObServer extends BaseRegionObserver {
 
     private Logger logger = LoggerFactory.getLogger(MyObServer.class);
 
-    static Configuration configuration = null;
+    static Configuration conf = null;
+    static Connection conn;
 
-    static Connection connection = null;
-
-    static {
-        configuration = HBaseConfiguration.create();
-        configuration.set("hbase.zookeeper.property.clientPort","2181");
-        configuration.set("hbase.zookeeper.quorum","hadoop111");
-        configuration.set("hbase.master","hadoop111:60000");
+    static{
+        conf = HBaseConfiguration.create();
+        conf.set("hbase.zookeeper.property.clientPort","2181");
+        conf.set("hbase.zookeeper.quorum","hadoop111");
+        conf.set("hbase:master","hadoop111:60000");
 
         try {
-            connection = ConnectionFactory.createConnection(configuration);
+            conn = ConnectionFactory.createConnection(conf);
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-
-
     @Override
-    public void postGetOp(ObserverContext<RegionCoprocessorEnvironment> e, Get get, List<Cell> results) {
-        logger.info("start method");
+    public void preGetOp(ObserverContext<RegionCoprocessorEnvironment> e, Get get, List<Cell> results)
+            throws IOException {
+        super.preGetOp(e, get, results);
+        logger.info("00000000000000000000000000000000000000000000000000000000000000$$$$");
     }
 
     @Override
     public void prePut(ObserverContext<RegionCoprocessorEnvironment> e, Put put, WALEdit edit, Durability durability) {
-
-        logger.info("end method");
-
-        byte[] row = put.getRow();
-
-        List<Cell> cells = put.get("cf".getBytes(), "name".getBytes());
-
-        Cell cell = cells.get(0);
         try {
-            Table table = connection.getTable(TableName.valueOf("testAPINew"));
-            Put newPut = new Put(cell.getValueArray());
-            newPut.addColumn("cf".getBytes(),"age".getBytes(),row);
-            table.put(newPut);
+            byte[] row = put.getRow();
+
+            List<Cell> list = put.get("cf".getBytes(),"name".getBytes());
+            Cell cell = list.get(0);
+
+            Table table = conn.getTable(TableName.valueOf("person8"));
+            Put put_new  = new Put(cell.getValueArray());
+            put_new.addColumn("cf".getBytes(),"age".getBytes(),row);
+
+            table.put(put_new);
             table.close();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        } catch (Exception e2) {
+            // TODO: handle exception
         }
     }
+
 }
  
