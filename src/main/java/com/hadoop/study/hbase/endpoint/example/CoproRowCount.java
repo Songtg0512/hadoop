@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * 〈1〉
+ * 〈Endpoint〉
  *
  * @author stg05
  * @create 2019/6/10
@@ -32,7 +32,7 @@ import java.util.Map;
 public class CoproRowCount {
 
     private static Configuration configuration = null;
-    private static Connection connection;
+    private static Connection connection = null;
     private static Table table = null;
 
     static {
@@ -41,7 +41,7 @@ public class CoproRowCount {
         configuration.set("hbase.zookeeper.quorum","hadoop111");
         configuration.set("hbase:master","hadoop111:60000");
         try {
-            ConnectionFactory.createConnection(configuration);
+            connection = ConnectionFactory.createConnection(configuration);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,6 +82,8 @@ public class CoproRowCount {
                     sum += l;
                     count++;
                 }
+                System.out.println("row count = " + sum);
+                System.out.println("region count = " + count);
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
